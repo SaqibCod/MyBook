@@ -90,7 +90,8 @@ export class Service {
             throw error;
         }
     }
-
+    
+    //file service
     async uploadFile(file) {
         try {
             return await this.storage.createFile({
@@ -113,8 +114,17 @@ export class Service {
             })
             return true;
         } catch (error) {
-            throw error;
+           console.log("Appwrite service :: deleteFile :: error", error);
+           return false;
         }
+    }
+
+    getFilePreview(fileId) {
+        return this.storage.getFilePreview({
+            bucketId: confi.appwriteBucketId,
+            fileId
+        })
+    
     }
 }
 export default new Service();

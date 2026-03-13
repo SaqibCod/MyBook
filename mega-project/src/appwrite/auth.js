@@ -1,8 +1,8 @@
-import {Account, client, ID} from 'appwrite'
+import {Account, Client, ID} from 'appwrite'
 import {confi} from "../conf/conf"
 
-class AuthService {
-    client = new client()
+ export class AuthService {
+    client = new Client()
     account
 
     constructor() {
@@ -42,6 +42,23 @@ class AuthService {
             throw error
         }
     }
+
+    async getAccount() {
+        try {
+            return await this.account.get();
+        } catch (error) {
+            throw error;
+        }
+    }
+
+    async logoutAccount() {
+        try {
+            return await this.account.deleteSessions('current');
+        } catch (error) {
+            throw error;
+        }
 }
 
-export default new AuthService();
+}
+const authService = new AuthService();
+export default authService;
